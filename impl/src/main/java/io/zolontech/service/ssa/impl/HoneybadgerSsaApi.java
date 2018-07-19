@@ -47,47 +47,75 @@ public class HoneybadgerSsaApi implements com.cfx.service.api.Service, io.zolont
         final List<Office> offices = new ArrayList<>();
         for (int i = 0; i < features.size(); i++) {
             final JsonObject feature = features.get(i).getAsJsonObject();
-            if (!feature.has("geometry")) {
-                continue;
-            }
-            System.out.println("Processing field office " + feature);
-            final JsonObject geometryJson = feature.getAsJsonObject("geometry");
-            final JsonObject officeAttrs = feature.getAsJsonObject("attributes");
-            final Office office = DomainEntityInstantiator.getInstance().newInstance(Office.class);
+            final Office office = processOffice(feature);
             office.setType(OfficeType.OFFICE);
-            final Address address = DomainEntityInstantiator.getInstance().newInstance(Address.class);
-            address.setLatitude(Double.valueOf(geometryJson.get("x").getAsString()));
-            address.setLongitude(Double.valueOf(geometryJson.get("y").getAsString()));
-            if (officeAttrs.has("AddressLine1")) {
-                address.setLine1(officeAttrs.get("AddressLine1").getAsString());
-            }
-            if (officeAttrs.has("AddressLine2")) {
-                address.setLine2(officeAttrs.get("AddressLine2").getAsString());
-            }
-            if (officeAttrs.has("AddressLine3")) {
-                address.setLine3(officeAttrs.get("AddressLine3").getAsString());
-            }
-            if (officeAttrs.has("City")) {
-                address.setCity(officeAttrs.get("City").getAsString());
-            }
-            if (officeAttrs.has("State")) {
-                address.setState(officeAttrs.get("State").getAsString());
-            }
-            if (officeAttrs.has("Zip5_1")) {
-                address.setZip(officeAttrs.get("Zip5_1").getAsString());
-            }
-            office.setAddress(address);
-            final OpenHours openHours = processOpenHours(officeAttrs);
-            office.setOpenhours(openHours);
             offices.add(office);
         }
         return offices;
     }
 
     @Override
-    public io.zolontech.service.ssa.Office getOffice(String officeName) {
-        // TODO: Auto-generated code;
+    public Office getOffice(final String s) {
         return null;
+    }
+
+    //@Override
+    public java.util.List<io.zolontech.service.ssa.Office> getResidenceStations(final String zipCode) {
+        if (zipCode == null || zipCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("Zip code cannot be null or empty string");
+        }
+        final FieldOfficeAccessor fieldOfficeAccessor = new FieldOfficeAccessor();
+        final JsonObject result = fieldOfficeAccessor.findForZipCodes(Collections.singleton(zipCode));
+        if (!result.has("features")) {
+            return Collections.emptyList();
+        }
+        final JsonArray features = result.get("features").getAsJsonArray();
+        if (features == null || features.size() == 0) {
+            return Collections.emptyList();
+        }
+        final List<Office> offices = new ArrayList<>();
+        for (int i = 0; i < features.size(); i++) {
+            final JsonObject feature = features.get(i).getAsJsonObject();
+            final Office office = processOffice(feature);
+            office.setType(OfficeType.RESIDENCE_STATION);
+            offices.add(office);
+        }
+        return offices;
+    }
+
+    private Office processOffice(final JsonObject officeJson) {
+        if (officeJson == null) {
+            return null;
+        }
+        System.out.println("Processing office " + officeJson);
+        final JsonObject geometryJson = officeJson.getAsJsonObject("geometry");
+        final JsonObject officeAttrs = officeJson.getAsJsonObject("attributes");
+        final Office office = DomainEntityInstantiator.getInstance().newInstance(Office.class);
+        final Address address = DomainEntityInstantiator.getInstance().newInstance(Address.class);
+        address.setLongitude(Double.valueOf(geometryJson.get("x").getAsString()));
+        address.setLatitude(Double.valueOf(geometryJson.get("y").getAsString()));
+        if (officeAttrs.has("AddressLine1")) {
+            address.setLine1(officeAttrs.get("AddressLine1").getAsString());
+        }
+        if (officeAttrs.has("AddressLine2")) {
+            address.setLine2(officeAttrs.get("AddressLine2").getAsString());
+        }
+        if (officeAttrs.has("AddressLine3")) {
+            address.setLine3(officeAttrs.get("AddressLine3").getAsString());
+        }
+        if (officeAttrs.has("City")) {
+            address.setCity(officeAttrs.get("City").getAsString());
+        }
+        if (officeAttrs.has("State")) {
+            address.setState(officeAttrs.get("State").getAsString());
+        }
+        if (officeAttrs.has("Zip5_1")) {
+            address.setZip(officeAttrs.get("Zip5_1").getAsString());
+        }
+        office.setAddress(address);
+        final OpenHours openHours = processOpenHours(officeAttrs);
+        office.setOpenhours(openHours);
+        return office;
     }
 
     private OpenHours processOpenHours(final JsonObject officeAttrs) {
