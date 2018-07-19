@@ -1,0 +1,36 @@
+{
+ "id": "80bd26cc-4903-4ac6-b168-edeae10dc150", 
+ "name": "Macaw Service Blueprint for SSA Customer Service", 
+ "description": "Macaw Service Blueprint for SSA Customer Service", 
+ "category": "Macaw Services", 
+ "tag": "MicroServices", 
+ "icon": "microservices", 
+ "published": {
+  "date": "2018-07-19T16:59:50.774203", 
+  "organization": "macaw.io", 
+  "user": "macaw"
+ }, 
+ "revision": "1.0", 
+ "services": [
+  {
+   "minQuantity": 0, 
+   "configDescriptors": [], 
+   "volumes": [], 
+   "service-version": "1.0.0", 
+   "defaultQuantity": 1, 
+   "service-name": "ssa-service", 
+   "id": "ssa-service", 
+   "name": "ssa-service-v1.0.0", 
+   "exposePorts": [], 
+   "service-namespace": "io.zolontech.services", 
+   "maxQuantity": 8
+  }
+ ], 
+ "webapps": [], 
+ "dependencies": [], 
+ "deployment": {
+  "order": [
+   "ssa-service"
+  ]
+ }
+}

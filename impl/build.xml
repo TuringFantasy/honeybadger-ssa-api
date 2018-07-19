@@ -1,9 +1,9 @@
-<project name="ssa" basedir="." default="deploy">
+<project name="honeybadger-ssa-api" basedir="." default="deploy">
 
     <property environment="env"/>
 
     <!-- The final name of the distributable -->
-    <property name="dist.name" value="ssa-impl"/>
+    <property name="dist.name" value="honeybadger-ssa-api-impl"/>
 
     <property name="src.root.dir" value="${basedir}/src"/>
     <property name="src.main.java.dir" value="${src.root.dir}/main/java"/>
