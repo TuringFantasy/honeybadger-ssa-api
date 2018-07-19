@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import io.zolontech.service.ssa.Address;
 import io.zolontech.service.ssa.DomainEntityInstantiator;
 import io.zolontech.service.ssa.Office;
+import io.zolontech.service.ssa.OfficeType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +50,7 @@ public class HoneybadgerSsaApi implements com.cfx.service.api.Service, io.zolont
             final JsonObject geometryJson = feature.getAsJsonObject("geometry");
             final JsonObject officeAttrs = feature.getAsJsonObject("attributes");
             final Office office = DomainEntityInstantiator.getInstance().newInstance(Office.class);
-
+            office.setType(OfficeType.OFFICE);
             final Address address = DomainEntityInstantiator.getInstance().newInstance(Address.class);
             address.setLatitude(Double.valueOf(geometryJson.get("x").getAsString()));
             address.setLongitude(Double.valueOf(geometryJson.get("y").getAsString()));
