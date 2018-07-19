@@ -47,6 +47,7 @@ public class HoneybadgerSsaApi implements com.cfx.service.api.Service, io.zolont
             if (!feature.has("geometry")) {
                 continue;
             }
+            System.out.println("Processing field office " + feature);
             final JsonObject geometryJson = feature.getAsJsonObject("geometry");
             final JsonObject officeAttrs = feature.getAsJsonObject("attributes");
             final Office office = DomainEntityInstantiator.getInstance().newInstance(Office.class);
@@ -54,7 +55,6 @@ public class HoneybadgerSsaApi implements com.cfx.service.api.Service, io.zolont
             final Address address = DomainEntityInstantiator.getInstance().newInstance(Address.class);
             address.setLatitude(Double.valueOf(geometryJson.get("x").getAsString()));
             address.setLongitude(Double.valueOf(geometryJson.get("y").getAsString()));
-
             if (officeAttrs.has("AddressLine1")) {
                 address.setLine1(officeAttrs.get("AddressLine1").getAsString());
             }
@@ -73,6 +73,7 @@ public class HoneybadgerSsaApi implements com.cfx.service.api.Service, io.zolont
             if (officeAttrs.has("Zip5_1")) {
                 address.setZip(officeAttrs.get("Zip5_1").getAsString());
             }
+            office.setAddress(address);
 
             offices.add(office);
         }
