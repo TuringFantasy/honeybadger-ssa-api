@@ -91,6 +91,12 @@ public class HoneybadgerSsaApi implements com.cfx.service.api.Service, io.zolont
         final JsonObject geometryJson = officeJson.getAsJsonObject("geometry");
         final JsonObject officeAttrs = officeJson.getAsJsonObject("attributes");
         final Office office = DomainEntityInstantiator.getInstance().newInstance(Office.class);
+        if (officeAttrs.has("OfficeName")) {
+            office.setName(officeAttrs.get("OfficeName").getAsString());
+        }
+        if (officeAttrs.has("OfficeCode")) {
+            office.setCode(officeAttrs.get("OfficeCode").getAsString());
+        }
         final Address address = DomainEntityInstantiator.getInstance().newInstance(Address.class);
         address.setLongitude(Double.valueOf(geometryJson.get("x").getAsString()));
         address.setLatitude(Double.valueOf(geometryJson.get("y").getAsString()));
