@@ -1,0 +1,282 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Social Service Administration (SSA) customer service.",
+    "version": "1.0.0",
+    "title": "SSA Customer Service",
+    "termsOfService": "https://api.honeybadger.us/terms/",
+    "contact": {
+      "email": "apiteam@macaw.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "api.honeybadger.us",
+  "basePath": "/ssaservice/app/services",
+  "tags": [
+    {
+      "name": "office",
+      "description": "Represents SSA Office or Residence location"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/offices": {
+      "get": {
+        "summary": "Get Offices given a zip code",
+        "description": "",
+        "operationId": "getOffices",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "zipCode",
+            "type": "string",
+            "required": true,
+            "description": "Zip Code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful invocation of the API",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Office"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Office": {
+      "get": {
+        "summary": "Get office details",
+        "description": "",
+        "operationId": "getOffice",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "officeName",
+            "type": "string",
+            "required": true,
+            "description": "Office Name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful invocation of the API",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Office"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "line1": {
+          "type": "string",
+          "description": "Address line 1"
+        },
+        "line2": {
+          "type": "string",
+          "description": "Address line 2"
+        },
+        "line3": {
+          "type": "string",
+          "description": "Address line 3"
+        },
+        "city": {
+          "type": "string",
+          "description": "City"
+        },
+        "state": {
+          "type": "string",
+          "description": "State"
+        },
+        "zip": {
+          "type": "string",
+          "description": "Zip Code"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Telephone Number"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "description": "Longitude"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "description": "Latitude"
+        }
+      }
+    },
+    "OpenHours": {
+      "type": "object",
+      "properties": {
+        "mon_open_tm": {
+          "type": "string",
+          "description": "Monday Opening Time"
+        },
+        "mon_clos_tm": {
+          "type": "string",
+          "description": "Monday Closing Time"
+        },
+        "tue_open_tm": {
+          "type": "string",
+          "description": "Tuesday Opening Time"
+        },
+        "tue_clos_tm": {
+          "type": "string",
+          "description": "Tuesday Closing Time"
+        },
+        "wed_open_tm": {
+          "type": "string",
+          "description": "Wednesday Opening Time"
+        },
+        "wed_clos_tm": {
+          "type": "string",
+          "description": "Wednesday Closing Time"
+        },
+        "thu_open_tm": {
+          "type": "string",
+          "description": "Thursday Opening Time"
+        },
+        "thu_clos_tm": {
+          "type": "string",
+          "description": "Thursday Closing Time"
+        },
+        "fri_open_tm": {
+          "type": "string",
+          "description": "Friday Opening Time"
+        },
+        "fri_clos_tm": {
+          "type": "string",
+          "description": "Friday Closing Time"
+        }
+      }
+    },
+    "Workload": {
+      "type": "object",
+      "properties": {
+        "region": {
+          "type": "string",
+          "description": "Region of the office"
+        },
+        "receipts": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Receipts"
+        },
+        "dispositions": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Dispositions"
+        },
+        "casesPending": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Cases Pending"
+        },
+        "rptg_prd_endt": {
+          "type": "string",
+          "format": "date",
+          "description": "Reporting perion end date"
+        }
+      }
+    },
+    "ProcessingTimes": {
+      "type": "object",
+      "properties": {
+        "average_processing_time": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Avergate processing time in days"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Rank"
+        },
+        "region": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Region"
+        },
+        "workdays": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Workday"
+        },
+        "rptg_prd_endt": {
+          "type": "string",
+          "format": "date",
+          "description": "Reporting perion end date"
+        }
+      }
+    },
+    "Office": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Unique code of the office"
+        },
+        "name": {
+          "type": "string",
+          "description": "Unique name of the office"
+        },
+        "address": {
+          "$ref": "#/definitions/Address"
+        },
+        "openhours": {
+          "$ref": "#/definitions/OpenHours"
+        },
+        "workload": {
+          "$ref": "#/definitions/Workload"
+        },
+        "processingTime": {
+          "$ref": "#/definitions/ProcessingTimes"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of the office",
+          "enum": [
+            "OFFICE",
+            "RESIDENCE_STATION"
+          ]
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Image Manager",
+    "url": "https://us.honeybadger.us"
+  }
+}
