@@ -18,9 +18,9 @@
    "volumes": [], 
    "service-version": "1.0.0", 
    "defaultQuantity": 1, 
-   "service-name": "ssa-service", 
-   "id": "ssa-service", 
-   "name": "ssa-service-v1.0.0", 
+   "service-name": "honeybadger-ssa-api", 
+   "id": "honeybadger-ssa-api", 
+   "name": "honeybadger-ssa-api-v1.0.0", 
    "exposePorts": [], 
    "service-namespace": "io.zolontech.services", 
    "maxQuantity": 8
@@ -30,7 +30,7 @@
  "dependencies": [], 
  "deployment": {
   "order": [
-   "ssa-service"
+   "honeybadger-ssa-api"
   ]
  }
 }
