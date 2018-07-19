@@ -39,7 +39,13 @@ public class FieldOfficeAccessor {
         }
         final String outFieldsEncoded;
         try {
-            final String outFields = "OfficeCode,OfficeName,OfficeType,AddressLine1,AddressLine2,AddressLine3";
+            final String outFields = "OfficeCode,OfficeName,OfficeType," +
+                    "AddressLine1,AddressLine2,AddressLine3,City,State,Zip5_1" +
+                    ",MON_OPEN_TM,MON_CLOS_TM" +
+                    ",TUE_OPEN_TM,TUE_CLOS_TM" +
+                    ",WED_OPEN_TM,WED_CLOS_TM" +
+                    ",THU_OPEN_TM,THU_CLOS_TM" +
+                    ",FRI_OPEN_TM,FRI_CLOS_TM";
             outFieldsEncoded = URLEncoder.encode(outFields, StandardCharsets.US_ASCII.name());
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("Failed to create a URL to fetch the field offices for zip codes", e);
