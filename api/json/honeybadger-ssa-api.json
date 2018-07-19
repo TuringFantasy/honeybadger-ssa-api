@@ -1,215 +1,214 @@
 {
-    "service": {
-        "namespace": "io.zolontech.services",
-        "name": "honeybadger-ssa-api",
-        "version": "1.0.0",
-        "description": "SSA Service",
-        "domain-entities": {
-            "address": {
-              "properties": {
-                "line1": {
-                  "type": "string",
-                  "description": "Address line 1"
-                },
-                "line2": {
-                  "type": "string",
-                  "description": "Address line 2"
-                },
-                "line3": {
-                  "type": "string",
-                  "description": "Address line 3"
-                },
-                "city": {
-                  "type": "string",
-                  "description": "City"
-                },
-                "state": {
-                  "type": "string",
-                  "description": "State"
-                },
-                "zip": {
-                  "type": "string",
-                  "description": "Zip Code"
-                },
-                "phone": {
-                  "type": "string",
-                  "description": "Telephone Number"
-                },
-                "longitude": {
-                  "type": "decimal64",
-                  "description": "Longitude"
-                },
-                "latitude": {
-                  "type": "decimal64",
-                  "description": "Latitude"
-                }
-              }
-            },
-            "openHours": {
-              "properties": {
-                "mon_open_tm": {
-                  "type": "string",
-                  "description": "Monday Opening Time"
-                },
-                "mon_clos_tm": {
-                  "type": "string",
-                  "description": "Monday Closing Time"
-                },
-                "tue_open_tm": {
-                  "type": "string",
-                  "description": "Tuesday Opening Time"
-                },
-                "tue_clos_tm": {
-                  "type": "string",
-                  "description": "Tuesday Closing Time"
-                },
-                "wed_open_tm": {
-                  "type": "string",
-                  "description": "Wednesday Opening Time"
-                },
-                "wed_clos_tm": {
-                  "type": "string",
-                  "description": "Wednesday Closing Time"
-                },
-                "thu_open_tm": {
-                  "type": "string",
-                  "description": "Thursday Opening Time"
-                },
-                "thu_clos_tm": {
-                  "type": "string",
-                  "description": "Thursday Closing Time"
-                },
-                "fri_open_tm": {
-                  "type": "string",
-                  "description": "Friday Opening Time"
-                },
-                "fri_clos_tm": {
-                  "type": "string",
-                  "description": "Friday Closing Time"
-                }
-              }
-            },
-            "workload": {
-              "type": "object",
-              "properties": {
-                "region": {
-                  "type": "string",
-                  "description": "Region of the office"
-                },
-                "receipts": {
-                  "type": "int32",
-                  "description": "Receipts"
-                },
-                "dispositions": {
-                  "type": "int32",
-                  "description": "Dispositions"
-                },
-                "casesPending": {
-                  "type": "int32",
-                  "description": "Cases Pending"
-                },
-                "rptg_prd_endt": {
-                  "type": "string",
-                  "description": "Reporting period end date"
-                }
-              }
-            },
-            "processingTimes": {
-              "properties": {
-                "average_processing_time": {
-                  "type": "int32",
-                  "description": "Avergate processing time in days"
-                },
-                "rank": {
-                  "type": "int32",
-                  "description": "Rank"
-                },
-                "region": {
-                  "type": "int32",
-                  "description": "Region"
-                },
-                "workdays": {
-                  "type": "int32",
-                  "description": "Workday"
-                },
-                "rptg_prd_endt": {
-                  "type": "string",
-                  "description": "Reporting perion end date"
-                }
-              }
-            },
-            "office": {
-              "properties": {
-                "code": {
-                  "type": "string",
-                  "description": "Unique code of the office"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Unique name of the office"
-                },
-                "address": {
-                  "type": "address"
-                },
-                "openhours": {
-                  "type": "openHours"
-                },
-                "workload": {
-                  "type": "workload"
-                },
-                "processingTime": {
-                  "type": "processingTimes"
-                },
-                "type": {
-                  "type": "office-type"
-                }
-              }
-            }
-        },
-        "enumerations": {
-            "office-type": {
-                "allowed-values": [
-                    "OFFICE",
-                    "RESIDENCE_STATION"
-                ]
-            }
-        },
-            "apis" : [
-                {
-                    "name" : "getOffices",
-                    "description" : "Returns list of offices with the given zipcode",
-                    "inputs": [
-                        {
-                            "name": "officeName",
-                            "type": "string"
-                        }
-                    ],
-                    "output" : {
-                        "type" : "list",
-                        "item" : "office"
-                    }
-                },
-                {
-                    "name" : "getOffice",
-                    "description" : "Returns an office with the specified office name",
-                    "inputs": [
-                        {
-                            "name": "officeName",
-                            "type": "string"
-                        }
-                    ],
-                    "output" : {
-                        "type" : "office"
-                    }
-                }
-            ],
-            "options" : {
-                "code-gen" : {
-                    "java" : {
-                        "package-name" : "io.zolontech.service.ssa"
-                    }
-                }
-
-            }
+  "service": {
+    "namespace": "io.zolontech.services",
+    "name": "honeybadger-ssa-api",
+    "version": "1.0.0",
+    "description": "SSA Service",
+    "domain-entities": {
+      "address": {
+        "properties": {
+          "line1": {
+            "type": "string",
+            "description": "Address line 1"
+          },
+          "line2": {
+            "type": "string",
+            "description": "Address line 2"
+          },
+          "line3": {
+            "type": "string",
+            "description": "Address line 3"
+          },
+          "city": {
+            "type": "string",
+            "description": "City"
+          },
+          "state": {
+            "type": "string",
+            "description": "State"
+          },
+          "zip": {
+            "type": "string",
+            "description": "Zip Code"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Telephone Number"
+          },
+          "longitude": {
+            "type": "decimal64",
+            "description": "Longitude"
+          },
+          "latitude": {
+            "type": "decimal64",
+            "description": "Latitude"
+          }
+        }
+      },
+      "openHours": {
+        "properties": {
+          "mon_open_tm": {
+            "type": "string",
+            "description": "Monday Opening Time"
+          },
+          "mon_clos_tm": {
+            "type": "string",
+            "description": "Monday Closing Time"
+          },
+          "tue_open_tm": {
+            "type": "string",
+            "description": "Tuesday Opening Time"
+          },
+          "tue_clos_tm": {
+            "type": "string",
+            "description": "Tuesday Closing Time"
+          },
+          "wed_open_tm": {
+            "type": "string",
+            "description": "Wednesday Opening Time"
+          },
+          "wed_clos_tm": {
+            "type": "string",
+            "description": "Wednesday Closing Time"
+          },
+          "thu_open_tm": {
+            "type": "string",
+            "description": "Thursday Opening Time"
+          },
+          "thu_clos_tm": {
+            "type": "string",
+            "description": "Thursday Closing Time"
+          },
+          "fri_open_tm": {
+            "type": "string",
+            "description": "Friday Opening Time"
+          },
+          "fri_clos_tm": {
+            "type": "string",
+            "description": "Friday Closing Time"
+          }
+        }
+      },
+      "workload": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "type": "string",
+            "description": "Region of the office"
+          },
+          "receipts": {
+            "type": "int32",
+            "description": "Receipts"
+          },
+          "dispositions": {
+            "type": "int32",
+            "description": "Dispositions"
+          },
+          "casesPending": {
+            "type": "int32",
+            "description": "Cases Pending"
+          },
+          "rptg_prd_endt": {
+            "type": "string",
+            "description": "Reporting period end date"
+          }
+        }
+      },
+      "processingTimes": {
+        "properties": {
+          "average_processing_time": {
+            "type": "int32",
+            "description": "Avergate processing time in days"
+          },
+          "rank": {
+            "type": "int32",
+            "description": "Rank"
+          },
+          "region": {
+            "type": "int32",
+            "description": "Region"
+          },
+          "workdays": {
+            "type": "int32",
+            "description": "Workday"
+          },
+          "rptg_prd_endt": {
+            "type": "string",
+            "description": "Reporting perion end date"
+          }
+        }
+      },
+      "office": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Unique code of the office"
+          },
+          "name": {
+            "type": "string",
+            "description": "Unique name of the office"
+          },
+          "address": {
+            "type": "address"
+          },
+          "openhours": {
+            "type": "openHours"
+          },
+          "workload": {
+            "type": "workload"
+          },
+          "processingTime": {
+            "type": "processingTimes"
+          },
+          "type": {
+            "type": "office-type"
+          }
+        }
+      }
+    },
+    "enumerations": {
+      "office-type": {
+        "allowed-values": [
+          "OFFICE",
+          "RESIDENCE_STATION"
+        ]
+      }
+    },
+    "apis": [
+      {
+        "name": "getFieldOffices",
+        "description": "Returns list of field offices for the given zipcode",
+        "inputs": [
+          {
+            "name": "zipCode",
+            "type": "string"
+          }
+        ],
+        "output": {
+          "type": "list",
+          "item": "office"
+        }
+      },
+      {
+        "name": "getOffice",
+        "description": "Returns an office with the specified office name",
+        "inputs": [
+          {
+            "name": "officeName",
+            "type": "string"
+          }
+        ],
+        "output": {
+          "type": "office"
+        }
+      }
+    ],
+    "options": {
+      "code-gen": {
+        "java": {
+          "package-name": "io.zolontech.service.ssa"
+        }
+      }
     }
+  }
 }

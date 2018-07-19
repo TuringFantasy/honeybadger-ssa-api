@@ -22,5 +22,6 @@ public class FieldOfficeAccesorTest {
         Assert.assertNotNull("Response is null", json);
         final JsonArray features = json.getAsJsonArray("features");
         Assert.assertNotNull("Data wasn't available for zip codes", zipCodes);
+        System.out.println("Got " + json);
     }
 }

@@ -20,7 +20,8 @@ public class FieldOfficeAccessor {
 
     private static final String fieldOfficeURL = "http://services6.arcgis.com/zFiipv75rloRP5N4/ArcGIS/rest/services/Office_Points/FeatureServer/1/query";
 
-    private static final String commonQueryParams = "time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=json&token=";
+    private static final String commonQueryParams = "time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&returnGeometry=true&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=json&token=";
+
 
     /**
      * Returns the field offices for the passed zip codes
@@ -36,7 +37,14 @@ public class FieldOfficeAccessor {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("Failed to create a URL to fetch the field offices for zip codes", e);
         }
-        final String uri = fieldOfficeURL + "?where=" + whereClauseEncoded + "&" + commonQueryParams;
+        final String outFieldsEncoded;
+        try {
+            final String outFields = "OfficeCode,OfficeName,OfficeType,AddressLine1,AddressLine2,AddressLine3";
+            outFieldsEncoded = URLEncoder.encode(outFields, StandardCharsets.US_ASCII.name());
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Failed to create a URL to fetch the field offices for zip codes", e);
+        }
+        final String uri = fieldOfficeURL + "?where=" + whereClauseEncoded + "&outFields=" + outFieldsEncoded + "&" + commonQueryParams;
         System.out.println("Invoking on " + uri);
         final String jsonContent;
         try {
