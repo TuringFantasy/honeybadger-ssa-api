@@ -51,7 +51,7 @@ public class ServicesAPI {
 	@GET
 	@Path("/offices")
 	public Response getOffices(@QueryParam("zipCode") String zipCode) throws CustomHttpClientException, IOException {
-        String methodName = "getOffices";
+        String methodName = "getFieldOffices";
         String paramsStr = String.format(" { %s : [ \"%s\" ] } ", "params", zipCode);
         
         return invokeAPI(methodName, paramsStr);
