@@ -206,7 +206,7 @@
             "options" : {
                 "code-gen" : {
                     "java" : {
-                        "package-name" : "io.zolontech.imagemanager"
+                        "package-name" : "io.zolontech.service.ssa"
                     }
                 }
 
