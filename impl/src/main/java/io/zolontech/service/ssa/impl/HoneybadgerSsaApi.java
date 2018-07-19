@@ -4,15 +4,18 @@
 package io.zolontech.service.ssa.impl;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.zolontech.service.ssa.Address;
 import io.zolontech.service.ssa.DomainEntityInstantiator;
 import io.zolontech.service.ssa.Office;
 import io.zolontech.service.ssa.OfficeType;
+import io.zolontech.service.ssa.OpenHours;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class HoneybadgerSsaApi implements com.cfx.service.api.Service, io.zolontech.service.ssa.HoneybadgerSsaApi {
     @Override
@@ -74,7 +77,8 @@ public class HoneybadgerSsaApi implements com.cfx.service.api.Service, io.zolont
                 address.setZip(officeAttrs.get("Zip5_1").getAsString());
             }
             office.setAddress(address);
-
+            final OpenHours openHours = processOpenHours(officeAttrs);
+            office.setOpenhours(openHours);
             offices.add(office);
         }
         return offices;
@@ -84,5 +88,57 @@ public class HoneybadgerSsaApi implements com.cfx.service.api.Service, io.zolont
     public io.zolontech.service.ssa.Office getOffice(String officeName) {
         // TODO: Auto-generated code;
         return null;
+    }
+
+    private OpenHours processOpenHours(final JsonObject officeAttrs) {
+        if (officeAttrs == null) {
+            return null;
+        }
+        final OpenHours openHours = DomainEntityInstantiator.getInstance().newInstance(OpenHours.class);
+        for (final Map.Entry<String, JsonElement> entry : officeAttrs.entrySet()) {
+            switch (entry.getKey()) {
+                case "MON_OPEN_TM": {
+                    openHours.setMonOpenTm(entry.getValue().getAsString());
+                    break;
+                }
+                case "MON_CLOS_TM": {
+                    openHours.setMonClosTm(entry.getValue().getAsString());
+                    break;
+                }
+                case "TUE_OPEN_TM": {
+                    openHours.setTueOpenTm(entry.getValue().getAsString());
+                    break;
+                }
+                case "TUE_CLOS_TM": {
+                    openHours.setTueClosTm(entry.getValue().getAsString());
+                    break;
+                }
+                case "WED_OPEN_TM": {
+                    openHours.setWedOpenTm(entry.getValue().getAsString());
+                    break;
+                }
+                case "WED_CLOS_TM": {
+                    openHours.setWedClosTm(entry.getValue().getAsString());
+                    break;
+                }
+                case "THU_OPEN_TM": {
+                    openHours.setThuOpenTm(entry.getValue().getAsString());
+                    break;
+                }
+                case "THU_CLOS_TM": {
+                    openHours.setThuClosTm(entry.getValue().getAsString());
+                    break;
+                }
+                case "FRI_OPEN_TM": {
+                    openHours.setFriOpenTm(entry.getValue().getAsString());
+                    break;
+                }
+                case "FRI_CLOS_TM": {
+                    openHours.setFriClosTm(entry.getValue().getAsString());
+                    break;
+                }
+            }
+        }
+        return openHours;
     }
 }
