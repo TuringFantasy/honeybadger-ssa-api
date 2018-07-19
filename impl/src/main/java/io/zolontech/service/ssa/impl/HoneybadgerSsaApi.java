@@ -64,6 +64,16 @@ public class HoneybadgerSsaApi implements com.cfx.service.api.Service, io.zolont
             if (officeAttrs.has("AddressLine3")) {
                 address.setLine3(officeAttrs.get("AddressLine3").getAsString());
             }
+            if (officeAttrs.has("City")) {
+                address.setCity(officeAttrs.get("City").getAsString());
+            }
+            if (officeAttrs.has("State")) {
+                address.setState(officeAttrs.get("State").getAsString());
+            }
+            if (officeAttrs.has("Zip5_1")) {
+                address.setZip(officeAttrs.get("Zip5_1").getAsString());
+            }
+
             offices.add(office);
         }
         return offices;
